@@ -46,7 +46,6 @@
     "@tinymce/tinymce-react": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "dompurify": "^3.1.6",
     "editorjs-alert": "^1.1.4",
     "editorjs-html": "^3.4.3",
     "eslint-config-prettier": "^9.1.0",
