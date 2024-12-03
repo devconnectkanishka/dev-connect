@@ -15,6 +15,9 @@ const nextConfig = {
       { protocol: "https", hostname: "*" },
     ],
   },
+  eslint: {
+    dirs: ["pages", "components", "lib"], // Specify directories to lint
+  },
 };
 
 export default nextConfig;
