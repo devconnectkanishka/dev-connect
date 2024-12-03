@@ -10,7 +10,7 @@ interface Props {
 }
 
 const UserCard = async ({ user }: Props) => {
-  const interactedTags = await getTopInteractedTags({ userId: user._id });
+  const interactedTags = await getTopInteractedTags({ userId: String(user._id) });
 
   return (
     <div className="text-dark400_light800 shadow-light-100_darknone flex w-full flex-grow max-xs:min-w-full xs:w-[258px]">
