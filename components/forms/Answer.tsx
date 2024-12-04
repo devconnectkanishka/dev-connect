@@ -140,7 +140,7 @@ const Answer = ({ authorId, question, questionId }: Props) => {
               <FormItem className="flex w-full flex-col gap-3">
                 <FormControl className="mt-3.5">
                   <Editor
-                    apiKey={process.env.NEXT_PUBLIC_TINY_MCE_API_KEY}
+                    // apiKey={process.env.NEXT_PUBLIC_TINY_MCE_API_KEY}
                     onInit={(evt, editor) => {
                       // @ts-ignore
                       editorRef.current = editor;
@@ -148,6 +148,8 @@ const Answer = ({ authorId, question, questionId }: Props) => {
                     onBlur={field.onBlur}
                     onEditorChange={(content) => field.onChange(content)}
                     init={{
+                      base_url: "/assets/tinymce", // Path to your TinyMCE files
+                      suffix: ".min", // Use `.min.js` files
                       height: 350,
                       menubar: false,
                       plugins: [

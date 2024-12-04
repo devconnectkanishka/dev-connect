@@ -177,7 +177,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Editor
-                  apiKey={process.env.NEXT_PUBLIC_TINY_MCE_API_KEY}
+                  // apiKey={process.env.NEXT_PUBLIC_TINY_MCE_API_KEY}
                   onInit={(evt, editor) => {
                     // @ts-ignore
                     editorRef.current = editor;
@@ -186,6 +186,8 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
                   onEditorChange={(content) => field.onChange(content)}
                   initialValue={parsedQuestionDetails.content || ""}
                   init={{
+                    base_url: "/assets/tinymce", // Path to your TinyMCE files
+                    suffix: ".min", // Use `.min.js` files
                     height: 350,
                     menubar: false,
                     plugins: [
@@ -216,8 +218,6 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
                     content_css: mode === "dark" ? "dark" : "light",
                   }}
                 />
-
-                {/* <div id="editorjs"></div> */}
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
                 Introduce the problem and expand on what you put in the title.
