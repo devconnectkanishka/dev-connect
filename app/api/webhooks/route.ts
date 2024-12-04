@@ -69,6 +69,22 @@ export async function POST(req: Request) {
       email_addresses: emailAddresses,
       username,
     } = evt.data;
+
+    // Log the payload for debugging
+    console.log("Webhook Payload:", {
+      id,
+      imageUrl,
+      firstName,
+      lastName,
+      emailAddresses,
+      username,
+    });
+
+    if (!username) {
+      console.error("Username is missing in the payload");
+      return new Response("Error: Username is required", { status: 400 });
+    }
+
     const mongoUser = await createUser({
       clerkId: id,
       name: `${firstName}${lastName ? ` ${lastName}` : ""}`,
