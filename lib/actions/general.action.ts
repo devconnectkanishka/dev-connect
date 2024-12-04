@@ -48,7 +48,7 @@ export async function globalSearch(params: SearchParams) {
                 ? item.clerkId
                 : type === "answer"
                   ? item.question
-                  : item._id,
+                  : item._id.toString(),
           })),
         );
       }
@@ -76,7 +76,7 @@ export async function globalSearch(params: SearchParams) {
             ? item.clerkId
             : type === "answer"
               ? item.question
-              : item._id,
+              : item._id.toString(),
       }));
     }
 

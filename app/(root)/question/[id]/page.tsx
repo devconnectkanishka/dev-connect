@@ -52,13 +52,13 @@ const QuestionDetailPage = async ({
           <div className="flex justify-end">
             <Votes
               type="question"
-              itemId={JSON.stringify(question._id)}
-              userId={JSON.stringify(mongoUser._id)}
+              itemId={JSON.stringify(question._id.toString())}
+              userId={JSON.stringify(mongoUser._id.toString())}
               upvotes={question.upvotes.length}
-              hasUpVoted={question.upvotes.includes(mongoUser._id)}
+              hasUpVoted={question.upvotes.includes(mongoUser._id.toString())}
               downvotes={question.downvotes.length}
-              hasDownVoted={question.downvotes.includes(mongoUser._id)}
-              hasSaved={mongoUser?.saved.includes(question._id)}
+              hasDownVoted={question.downvotes.includes(mongoUser._id.toString())}
+              hasSaved={mongoUser?.saved.includes(question._id.toString())}
             />
           </div>
         </div>
@@ -95,20 +95,20 @@ const QuestionDetailPage = async ({
       <div className="mt-8 flex flex-row items-center justify-between">
         <div className="flex flex-wrap gap-2">
           {question.tags.map((tag: ITag) => (
-            <RenderTag key={String(tag._id)} _id={String(tag._id)} name={tag.name} />
+            <RenderTag key={String(tag._id.toString())} _id={String(tag._id.toString())} name={tag.name} />
           ))}
         </div>
       </div>
       <AllAnswers
-        questionId={JSON.stringify(question._id)}
-        userId={mongoUser._id}
+        questionId={JSON.stringify(question._id.toString())}
+        userId={mongoUser._id.toString()}
         totalAnswers={question.answers.length}
         filter={searchParams?.filter}
         page={searchParams?.page ? +searchParams.page : 1}
       />
       <Answer
         question={question.content}
-        questionId={JSON.stringify(question._id)}
+        questionId={JSON.stringify(question._id.toString())}
         authorId={JSON.stringify(mongoUser)}
       />
     </>

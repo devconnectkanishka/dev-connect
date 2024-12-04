@@ -94,14 +94,14 @@ const ProfileDetailPage = async ({
           </TabsList>
           <TabsContent value="top-posts">
             <QuestionsTab
-              userId={user._id}
+              userId={user._id.toString()}
               clerkId={clerkId}
               searchParams={searchParams}
             />
           </TabsContent>
           <TabsContent value="answers">
             <AnswersTab
-              userId={user._id}
+              userId={user._id.toString()}
               clerkId={clerkId}
               searchParams={searchParams}
             />

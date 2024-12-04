@@ -17,8 +17,8 @@ const RightSideBar = async () => {
         <div className="mt-7 flex w-full flex-col gap-[30px]">
           {topQuestions.map((question) => (
             <Link
-              key={question._id}
-              href={`/question/${question._id}`}
+              key={question._id.toString()}
+              href={`/question/${question._id.toString()}`}
               className="flex cursor-pointer  items-center justify-between gap-7"
             >
               <p className="body-medium text-dark500_light700">
@@ -40,8 +40,8 @@ const RightSideBar = async () => {
         <div className="mt-7 flex flex-col gap-4">
           {popularTags.map((tag) => (
             <RenderTag
-              key={tag._id}
-              _id={tag._id}
+              key={tag._id.toString()}
+              _id={tag._id.toString()}
               name={tag.name}
               totalQuestions={tag.numberOfQuestions}
               showCount

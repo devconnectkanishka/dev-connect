@@ -10,7 +10,7 @@ interface Props {
 }
 
 const UserCard = async ({ user }: Props) => {
-  const interactedTags = await getTopInteractedTags({ userId: String(user._id) });
+  const interactedTags = await getTopInteractedTags({ userId: String(user._id.toString()) });
 
   return (
     <div className="text-dark400_light800 shadow-light-100_darknone flex w-full flex-grow max-xs:min-w-full xs:w-[258px]">
@@ -39,7 +39,7 @@ const UserCard = async ({ user }: Props) => {
           {interactedTags.length > 0 ? (
             <div className="flex items-start gap-2">
               {interactedTags.map((tag: any) => (
-                <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
+                <RenderTag key={tag._id.toString()} _id={tag._id.toString()} name={tag.name} />
               ))}
             </div>
           ) : (

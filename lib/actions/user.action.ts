@@ -37,7 +37,7 @@ export async function createUser(userData: CreateUserParams) {
     connectToDatabase();
     const newUser = await User.create(userData);
 
-    await User.findByIdAndUpdate(newUser._id, { $inc: { reputation: 50 } });
+    await User.findByIdAndUpdate(newUser._id.toString(), { $inc: { reputation: 50 } });
 
     return newUser;
   } catch (error) {
@@ -73,14 +73,14 @@ export async function deleteUser(params: DeleteUserParams) {
     // and questions, answers, and comments, etc.
 
     // get user questions ids
-    // const userQuestionsIds = await Question.find({ author: user._id }).distinct(
+    // const userQuestionsIds = await Question.find({ author: user._id.toString() }).distinct(
     //   "_id",
     // );
 
-    await Question.deleteMany({ author: user._id });
+    await Question.deleteMany({ author: user._id.toString() });
 
     // TODO: delete user answers, comments, etc.
-    const deleteUser = await User.findByIdAndDelete(user._id);
+    const deleteUser = await User.findByIdAndDelete(user._id.toString());
     return deleteUser;
   } catch (error) {
     console.log(error);
@@ -155,10 +155,10 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
       "_id",
     );
 
-    const questionAuthorId = question.author._id.toString();
+    const questionAuthorId = question.author._id.toString().toString();
 
     if (user.saved.includes(questionId)) {
-      if (questionAuthorId !== user._id.toString()) {
+      if (questionAuthorId !== user._id.toString().toString()) {
         await User.findByIdAndUpdate(questionAuthorId, {
           $inc: { reputation: -5 },
         });
@@ -173,7 +173,7 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
         $pull: { saved: questionId },
       };
     } else {
-      if (questionAuthorId !== user._id.toString()) {
+      if (questionAuthorId !== user._id.toString().toString()) {
         await User.findByIdAndUpdate(questionAuthorId, {
           $inc: { reputation: 5 },
         });
@@ -271,11 +271,11 @@ export async function getUserInfo(params: GetUserByIdParams) {
     if (!user) {
       throw new Error("User not found");
     }
-    const totalQuestions = await Question.countDocuments({ author: user._id });
-    const totalAnswers = await Answer.countDocuments({ author: user._id });
+    const totalQuestions = await Question.countDocuments({ author: user._id.toString() });
+    const totalAnswers = await Answer.countDocuments({ author: user._id.toString() });
 
     const [questionUpVotes] = await Question.aggregate([
-      { $match: { author: user._id } },
+      { $match: { author: user._id.toString() } },
       {
         $project: {
           _id: 0,
@@ -291,7 +291,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
     ]);
 
     const [answerUpVotes] = await Answer.aggregate([
-      { $match: { author: user._id } },
+      { $match: { author: user._id.toString() } },
       {
         $project: {
           _id: 0,
@@ -307,7 +307,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
     ]);
 
     const [questionViews] = await Answer.aggregate([
-      { $match: { author: user._id } },
+      { $match: { author: user._id.toString() } },
       {
         $group: {
           _id: null,

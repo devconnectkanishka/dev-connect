@@ -36,7 +36,7 @@ const AllAnswers = async ({
       </div>
       <div className="">
         {result.answers.map((answer) => (
-          <article key={answer._id} className="light-border border-b py-10">
+          <article key={answer._id.toString()} className="light-border border-b py-10">
             <div className="mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
               <Link
                 href={`/profile/${answer.author.clerkId}`}
@@ -62,7 +62,7 @@ const AllAnswers = async ({
               <div className="flex justify-end">
                 <Votes
                   type="answer"
-                  itemId={JSON.stringify(answer._id)}
+                  itemId={JSON.stringify(answer._id.toString())}
                   userId={JSON.stringify(userId)}
                   upvotes={answer.upvotes.length}
                   hasUpVoted={answer.upvotes.includes(userId)}

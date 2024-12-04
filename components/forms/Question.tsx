@@ -69,7 +69,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
           title: values.title,
           content: values.explanation,
           path: pathname,
-          questionId: parsedQuestionDetails._id,
+          questionId: parsedQuestionDetails._id.toString(),
         });
 
         toast({
@@ -78,7 +78,7 @@ const Question = ({ mongoUserId, type, questionDetails }: Props) => {
         });
 
         //* navigate to question detail page
-        router.push(`/question/${parsedQuestionDetails._id}`);
+        router.push(`/question/${parsedQuestionDetails._id.toString()}`);
       } else {
         // Todo: make a async call to your API -> create question
         await createQuestion({

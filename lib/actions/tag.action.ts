@@ -25,7 +25,7 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
 
     // Find the interactions for the user and group by tags
     const interactions = await Interaction.aggregate([
-      { $match: { user: user._id } }, // Match interactions by the specific user
+      { $match: { user: user._id.toString() } }, // Match interactions by the specific user
       { $unwind: "$tags" }, // Unwind the tags array to group by each tag
       { $group: { _id: "$tags", count: { $sum: 1 } } }, // Group by tagId and count interactions
       {
@@ -39,7 +39,7 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
       { $unwind: "$tag" }, // Unwind the tag array
       { $sort: { count: -1 } }, // Sort by the number of interactions (descending)
       { $limit: 5 }, // Limit to top 5 tags
-      { $project: { _id: "$tag._id", name: "$tag.name", count: 1 } }, // Project the fields to return
+      { $project: { _id: "$tag._id.toString()", name: "$tag.name", count: 1 } }, // Project the fields to return
     ]);
 
     return interactions; // Return the top interacted tags

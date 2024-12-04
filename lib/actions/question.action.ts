@@ -37,14 +37,14 @@ export async function createQuestion(params: CreateQuestionParams) {
     for (const tag of tags) {
       const existingTag = await Tag.findOneAndUpdate(
         { name: { $regex: new RegExp(`^${tag}$`, "i") } }, //* filtering the tags using the name.
-        { $setOnInsert: { name: tag }, $push: { questions: question._id } }, //* updating the tags question field with the question id.
+        { $setOnInsert: { name: tag }, $push: { questions: question._id.toString() } }, //* updating the tags question field with the question id.
         { upsert: true, new: true }, //* if the tag does'nt exist then it will create an new tag with the same values specified in the update.
       );
-      tagDocuments.push(existingTag._id);
+      tagDocuments.push(existingTag._id.toString());
     }
 
     // ? Pushing the tags into the question.
-    await Question.findByIdAndUpdate(question._id, {
+    await Question.findByIdAndUpdate(question._id.toString(), {
       $push: { tags: { $each: tagDocuments } },
     });
 
@@ -52,7 +52,7 @@ export async function createQuestion(params: CreateQuestionParams) {
 
     await Interaction.create({
       user: author,
-      question: question._id,
+      question: question._id.toString(),
       tags: tagDocuments,
       action: "ask_question",
     });
@@ -284,7 +284,7 @@ export async function deleteQuestion(params: DeleteQuestionParams) {
       { $pull: { questions: questionId } },
     );
 
-    await User.findByIdAndUpdate(deletedQuestion.author._id, {
+    await User.findByIdAndUpdate(deletedQuestion.author._id.toString(), {
       $inc: { reputation: -10 },
     });
     revalidatePath(path);
@@ -352,7 +352,7 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
     const skipAmount = (page - 1) * pageSize;
 
     // Find the user's interactions
-    const userInteractions = await Interaction.find({ user: user._id })
+    const userInteractions = await Interaction.find({ user: user._id.toString() })
       .populate("tags")
       .exec();
 
@@ -367,13 +367,13 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
     // Get distinct tag IDs from user's interactions
     const distinctUserTagIds = [
       // @ts-ignore
-      ...new Set(userTags.map((tag: any) => tag._id)),
+      ...new Set(userTags.map((tag: any) => tag._id.toString())),
     ];
 
     const query: FilterQuery<typeof Question> = {
       $and: [
         { tags: { $in: distinctUserTagIds } }, // Questions with user's tags
-        { author: { $ne: user._id } }, // Exclude user's own questions
+        { author: { $ne: user._id.toString() } }, // Exclude user's own questions
       ],
     };
 

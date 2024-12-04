@@ -23,7 +23,7 @@ const QuestionsTab = async ({
       {totalQuestions > 0 ? (
         questions.map((question: any) => (
           <QuestionCard
-            key={question._id}
+            key={question._id.toString()}
             clerkId={clerkId}
             tags={question.tags}
             title={question.title}
@@ -31,7 +31,7 @@ const QuestionsTab = async ({
             upvotes={question.upvotes.length}
             answers={question.answers}
             views={question.views}
-            _id={question._id}
+            _id={question._id.toString()}
             createdAt={question.createdAt}
           />
         ))

@@ -42,8 +42,8 @@ const TagsPage = async ({ searchParams }: SearchParamsProps) => {
         {result.tags.length > 0 ? (
           result.tags.map((tag) => (
             <Link
-              href={`/tags/${tag._id}`}
-              key={tag._id}
+              href={`/tags/${tag._id.toString()}`}
+              key={tag._id.toString()}
               className="shadow-light100_darknone flex flex-grow"
             >
               <article className="background-light900_dark200 light-border flex w-full flex-grow flex-col justify-center rounded-2xl border px-8 py-10 sm:w-[220px]">

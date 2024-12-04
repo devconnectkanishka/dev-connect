@@ -24,9 +24,9 @@ const AnswersTab = async ({
         {totalAnswers > 0 ? (
           answers.map((answer) => (
             <AnswerCard
-              key={answer._id}
+              key={answer._id.toString()}
               clerkId={clerkId}
-              _id={answer._id}
+              _id={answer._id.toString()}
               question={answer.question}
               author={answer.author}
               upvotes={answer.upvotes.length}
