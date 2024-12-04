@@ -95,7 +95,7 @@ const QuestionDetailPage = async ({
       <div className="mt-8 flex flex-row items-center justify-between">
         <div className="flex flex-wrap gap-2">
           {question.tags.map((tag: ITag) => (
-            <RenderTag key={String(tag._id.toString())} _id={String(tag._id.toString())} name={tag.name} />
+            <RenderTag key={String(tag._id)} _id={String(tag._id)} name={tag.name} />
           ))}
         </div>
       </div>
