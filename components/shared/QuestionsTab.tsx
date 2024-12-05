@@ -38,9 +38,7 @@ const QuestionsTab = async ({
       ) : (
         <NoResult
           title="These's no top questions to show"
-          description="Be the first to break the silence! 🚀 Ask a Question and kickstart the
-    discussion. our query could be the next big thing others learn from. Get
-    involved! 💡"
+          description="🌟 Ask a question, spark a conversation, and let your ideas inspire others! 💬🚀✨"
           link="/ask-question"
           linkTitle="Ask a Question"
         />
